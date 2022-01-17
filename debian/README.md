@@ -3,8 +3,8 @@
 You can use this image as a base container to run systemd services inside.
 
 ## Supported tags
- - `11`
- - `latest`, `10`
+ - `latest`, `11`
+ - `10`
 
 ## Usage
 
