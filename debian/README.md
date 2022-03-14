@@ -10,8 +10,8 @@ You can use this image as a base container to run systemd services inside.
 
 Run the container as a daemon
 
-`docker run -d --privileged --name systemd-debian -v /sys/fs/cgroup:/sys/fs/cgroup:ro joepublic/systemd-debian:latest`
+`docker run -d --privileged --name molecule-debian -v /sys/fs/cgroup:/sys/fs/cgroup:ro joepublic/molecule-debian:latest`
 
 Enter to the container
 
-`docker exec -it systemd-debian bash`
+`docker exec -it molecule-debian bash`

@@ -12,8 +12,8 @@ You can use this image as a base container to run systemd services inside.
 
 Run the container as a daemon
 
-`docker run -d --privileged --name systemd-ubuntu -v /sys/fs/cgroup:/sys/fs/cgroup:ro joepublic/systemd-ubuntu:latest`
+`docker run -d --privileged --name molecule-ubuntu -v /sys/fs/cgroup:/sys/fs/cgroup:ro joepublic/molecule-ubuntu:latest`
 
 Enter to the container
 
-`docker exec -it systemd-ubuntu bash`
+`docker exec -it molecule-ubuntu bash`
