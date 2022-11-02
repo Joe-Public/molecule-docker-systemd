@@ -37,5 +37,5 @@ jobs:
           tags: |
             joepublic/molecule-debian:11
             joepublic/molecule-debian:latest
-            ghcr.io/Joe-Public/molecule-debian:11
-            ghcr.io/Joe-Public/molecule-debian:latest
+            ghcr.io/joe-public/molecule-debian:11
+            ghcr.io/joe-public/molecule-debian:latest
