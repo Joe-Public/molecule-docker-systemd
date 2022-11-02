@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - 'debian/11/Dockerfile'
+  workflow_dispatch:
 
 jobs:
   build-and-push-debian-11:
