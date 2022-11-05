@@ -7,6 +7,9 @@ on:
 
 env:
   DEBIAN_LATEST: 11
+  FILES: >
+    debian/10/Dockerfile
+    debian/11/Dockerfile
 
 jobs:
   build-and-push-all:
@@ -32,12 +35,8 @@ jobs:
           password: ${{ secrets.CR_PAT }}
 
       - name: build and push changed Dockerfile
-        with:
-          files: >
-            debian/10/Dockerfile
-            debian/11/Dockerfile
         run: |
-          for file in ${{ inputs.files }}
+          for file in $FILES
           do
             pwd
             TAG_NAME=`cut -d / -f 2 <<< $file`
