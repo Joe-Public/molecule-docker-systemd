@@ -1,0 +1,53 @@
+name: build and push all images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 20 * * 0'
+
+env:
+  DEBIAN_LATEST: 11
+
+jobs:
+  build-and-push-all:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+
+      - name: build and push changed Dockerfile
+        with:
+          files: >
+            debian/10/Dockerfile
+            debian/11/Dockerfile
+        run: |
+          for file in ${{ inputs.files }}
+          do
+            pwd
+            TAG_NAME=`cut -d / -f 2 <<< $file`
+            DISTRIBUTION=`cut -d / -f 1 <<< $file`
+            if [[ ("$DISTRIBUTION" == "centos" && "$CENTOS_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "debian" && "$DEBIAN_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "fedora" && "$FEDORA_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "ubuntu" && "$UBUNTU_LATEST" == "$TAG_NAME") ]]; then
+              TAGS="--tag joepublic/molecule-$DISTRIBUTION:$TAG_NAME --tag joepublic/molecule-$DISTRIBUTION:latest --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:$TAG_NAME --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:latest"
+            else
+              TAGS="--tag joepublic/molecule-$DISTRIBUTION:$TAG_NAME --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:$TAG_NAME"
+            fi
+            docker build $TAGS $DISTRIBUTION/$TAG_NAME/
+            docker push -a joepublic/molecule-$DISTRIBUTION
+            docker push -a ghcr.io/joe-public/molecule-$DISTRIBUTION
+          done
