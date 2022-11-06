@@ -1,9 +1,10 @@
-# CentOS image with systemd enabled
+# Rocky Linux image with systemd enabled
 
 You can use this image as a base container to run systemd services inside.
 
 ## Supported tags
- - `latest`, `7`
+ - `latest`, `9`
+ - `8`
 
 ## Usage
 

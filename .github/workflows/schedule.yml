@@ -14,7 +14,8 @@ env:
   UBUNTU_LTS: 22.04
   FILES: >
     centos/7/Dockerfile
-    centos/8/Dockerfile
+    rockylinux/8/Dockerfile
+    rockylinux/9/Dockerfile
     debian/10/Dockerfile
     debian/11/Dockerfile
     debian/12/Dockerfile
