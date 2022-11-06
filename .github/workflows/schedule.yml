@@ -6,10 +6,26 @@ on:
     - cron: '0 20 * * 0'
 
 env:
+  CENTOS_LATEST: 8  
   DEBIAN_LATEST: 11
+  DEBIAN_TESTING: 12
+  FEDORA_LATEST: 35
+  UBUNTU_LATEST: 22.10
+  UBUNTU_LTS: 22.04
   FILES: >
+    centos/7/Dockerfile
+    centos/8/Dockerfile
     debian/10/Dockerfile
     debian/11/Dockerfile
+    debian/12/Dockerfile
+    fedora/34/Dockerfile
+    fedora/35/Dockerfile
+    ubuntu/16.04/Dockerfile
+    ubuntu/18.04/Dockerfile
+    ubuntu/20.04/Dockerfile
+    ubuntu/21.10/Dockerfile
+    ubuntu/22.04/Dockerfile
+    ubuntu/22.10/Dockerfile
 
 jobs:
   build-and-push-all:
@@ -40,10 +56,15 @@ jobs:
           do
             TAG_NAME=`cut -d / -f 2 <<< $FILE`
             DISTRIBUTION=`cut -d / -f 1 <<< $FILE`
+            TAGS="--tag joepublic/molecule-$DISTRIBUTION:$TAG_NAME --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:$TAG_NAME"
             if [[ ("$DISTRIBUTION" == "centos" && "$CENTOS_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "debian" && "$DEBIAN_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "fedora" && "$FEDORA_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "ubuntu" && "$UBUNTU_LATEST" == "$TAG_NAME") ]]; then
-              TAGS="--tag joepublic/molecule-$DISTRIBUTION:$TAG_NAME --tag joepublic/molecule-$DISTRIBUTION:latest --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:$TAG_NAME --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:latest"
-            else
-              TAGS="--tag joepublic/molecule-$DISTRIBUTION:$TAG_NAME --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:$TAG_NAME"
+              TAGS="$TAGS --tag joepublic/molecule-$DISTRIBUTION:latest --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:latest"
+            fi
+            if [[ ("$DISTRIBUTION" == "ubuntu" && "$UBUNTU_LTS" == "$TAG_NAME") ]]; then
+              TAGS="$TAGS --tag joepublic/molecule-$DISTRIBUTION:lts --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:lts"
+            fi
+            if [[ ("$DISTRIBUTION" == "debian" && "$DEBIAN_TESTING" == "$TAG_NAME") ]]; then
+              TAGS="$TAGS --tag joepublic/molecule-$DISTRIBUTION:testing --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:testing"
             fi
             docker build $TAGS $DISTRIBUTION/$TAG_NAME/
             docker push -a joepublic/molecule-$DISTRIBUTION
