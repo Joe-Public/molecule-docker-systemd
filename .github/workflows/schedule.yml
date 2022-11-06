@@ -3,7 +3,7 @@ name: build and push all images
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 20 * * 0'
+    - cron: '55 23 * * 0'
 
 env:
   CENTOS_LATEST: 8  
