@@ -34,13 +34,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
 
-      - name: build and push changed Dockerfile
+      - name: build and push defined Dockerfile
         run: |
-          for file in $FILES
+          for FILE in $FILES
           do
-            pwd
-            TAG_NAME=`cut -d / -f 2 <<< $file`
-            DISTRIBUTION=`cut -d / -f 1 <<< $file`
+            TAG_NAME=`cut -d / -f 2 <<< $FILE`
+            DISTRIBUTION=`cut -d / -f 1 <<< $FILE`
             if [[ ("$DISTRIBUTION" == "centos" && "$CENTOS_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "debian" && "$DEBIAN_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "fedora" && "$FEDORA_LATEST" == "$TAG_NAME") || ("$DISTRIBUTION" == "ubuntu" && "$UBUNTU_LATEST" == "$TAG_NAME") ]]; then
               TAGS="--tag joepublic/molecule-$DISTRIBUTION:$TAG_NAME --tag joepublic/molecule-$DISTRIBUTION:latest --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:$TAG_NAME --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:latest"
             else
