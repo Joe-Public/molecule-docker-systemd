@@ -1,8 +1,6 @@
 name: build and push
 
 on:
-  schedule:
-    - cron: '0 20 * * 0'
   push:
     paths:
       - '**/Dockerfile'
