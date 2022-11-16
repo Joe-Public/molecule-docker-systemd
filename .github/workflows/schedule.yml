@@ -25,7 +25,6 @@ env:
     ubuntu/16.04/Dockerfile
     ubuntu/18.04/Dockerfile
     ubuntu/20.04/Dockerfile
-    ubuntu/21.10/Dockerfile
     ubuntu/22.04/Dockerfile
     ubuntu/22.10/Dockerfile
 
