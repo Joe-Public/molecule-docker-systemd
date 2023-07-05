@@ -55,7 +55,7 @@ jobs:
             if [[ ("$DISTRIBUTION" == "ubuntu" && "$UBUNTU_LTS" == "$TAG_NAME") ]]; then
               TAGS="$TAGS --tag joepublic/molecule-$DISTRIBUTION:lts --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:lts"
             fi
-            docker build $TAGS $DISTRIBUTION/$TAG_NAME/
+            docker build --no-cache $TAGS $DISTRIBUTION/$TAG_NAME/
             docker push -a joepublic/molecule-$DISTRIBUTION
             docker push -a ghcr.io/joe-public/molecule-$DISTRIBUTION
           done
