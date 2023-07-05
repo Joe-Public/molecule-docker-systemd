@@ -6,27 +6,22 @@ on:
     - cron: '55 23 * * 0'
 
 env:
-  CENTOS_LATEST: 8  
-  DEBIAN_LATEST: 11
-  DEBIAN_TESTING: 12
-  FEDORA_LATEST: 35
-  UBUNTU_LATEST: 22.10
+  DEBIAN_LATEST: 12
+  FEDORA_LATEST: 38
+  UBUNTU_LATEST: 23.04
   UBUNTU_LTS: 22.04
   ROCKY_LATEST: 9
   FILES: >
-    centos/7/Dockerfile
     rockylinux/8/Dockerfile
     rockylinux/9/Dockerfile
     debian/10/Dockerfile
     debian/11/Dockerfile
     debian/12/Dockerfile
-    fedora/34/Dockerfile
-    fedora/35/Dockerfile
-    ubuntu/16.04/Dockerfile
-    ubuntu/18.04/Dockerfile
+    fedora/37/Dockerfile
+    fedora/38/Dockerfile
     ubuntu/20.04/Dockerfile
     ubuntu/22.04/Dockerfile
-    ubuntu/22.10/Dockerfile
+    ubuntu/23.04/Dockerfile
 
 jobs:
   build-and-push-all:
@@ -63,9 +58,6 @@ jobs:
             fi
             if [[ ("$DISTRIBUTION" == "ubuntu" && "$UBUNTU_LTS" == "$TAG_NAME") ]]; then
               TAGS="$TAGS --tag joepublic/molecule-$DISTRIBUTION:lts --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:lts"
-            fi
-            if [[ ("$DISTRIBUTION" == "debian" && "$DEBIAN_TESTING" == "$TAG_NAME") ]]; then
-              TAGS="$TAGS --tag joepublic/molecule-$DISTRIBUTION:testing --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:testing"
             fi
             docker build $TAGS $DISTRIBUTION/$TAG_NAME/
             docker push -a joepublic/molecule-$DISTRIBUTION

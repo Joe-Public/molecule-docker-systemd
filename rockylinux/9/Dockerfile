@@ -2,7 +2,7 @@ FROM rockylinux:9
 
 ENV container docker
 
-RUN yum makecache && yum install -y python3 sudo bash && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all
+RUN yum makecache && yum install -y python3 sudo bash systemd && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all
 
 RUN cd /lib/systemd/system/sysinit.target.wants/; \
     for i in *; do [ $i = systemd-tmpfiles-setup.service ] || rm -f $i; done

@@ -1,15 +1,7 @@
-# Docker images for running systemd
+# Docker images with systemd for molecule
 
-You can use this images as base containers to run systemd services inside.
+You can use these images as base containers to run systemd services inside. Normally you wouldn't do this. But if you want to test your Ansible roles with [molecule](https://ansible.readthedocs.io/projects/molecule/) it is pretty handy to have a docker container running with systemd. This allows you to also test systemd tasks (e.g. restart of a service) you typically need on your physical hosts.
 
 ## Usage
 
-Run the container as a daemon
-
-`docker run -d --cap-add SYS_ADMIN -v /sys/fs/cgroup:/sys/fs/cgroup:ro joepublic/$IMAGE`
-
-Enter to the container
-
-`docker exec -it $CONTAINER_ID bash`
-
-Copyright (c) 2018 Julien Reichardt - ISC License
+See the README file in the distribution folder you want to use.

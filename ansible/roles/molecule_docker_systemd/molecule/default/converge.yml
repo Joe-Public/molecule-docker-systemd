@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include joe_public.molecule_docker_systemd"
+      include_role:
+        name: "joe_public.molecule_docker_systemd"

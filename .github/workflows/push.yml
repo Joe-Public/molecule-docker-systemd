@@ -6,11 +6,9 @@ on:
       - '**/Dockerfile'
 
 env:
-  CENTOS_LATEST: 8  
-  DEBIAN_LATEST: 11
-  DEBIAN_TESTING: 12
-  FEDORA_LATEST: 35
-  UBUNTU_LATEST: 22.10
+  DEBIAN_LATEST: 12
+  FEDORA_LATEST: 38
+  UBUNTU_LATEST: 23.04
   UBUNTU_LTS: 22.04
   ROCKY_LATEST: 9
 
@@ -56,9 +54,6 @@ jobs:
             fi
             if [[ ("$DISTRIBUTION" == "ubuntu" && "$UBUNTU_LTS" == "$TAG_NAME") ]]; then
               TAGS="$TAGS --tag joepublic/molecule-$DISTRIBUTION:lts --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:lts"
-            fi
-            if [[ ("$DISTRIBUTION" == "debian" && "$DEBIAN_TESTING" == "$TAG_NAME") ]]; then
-              TAGS="$TAGS --tag joepublic/molecule-$DISTRIBUTION:testing --tag ghcr.io/joe-public/molecule-$DISTRIBUTION:testing"
             fi
             docker build $TAGS $DISTRIBUTION/$TAG_NAME/
             docker push -a joepublic/molecule-$DISTRIBUTION
