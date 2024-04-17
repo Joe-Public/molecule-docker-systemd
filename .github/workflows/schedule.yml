@@ -7,21 +7,22 @@ on:
 
 env:
   DEBIAN_LATEST: 12
-  FEDORA_LATEST: 38
-  UBUNTU_LATEST: 23.04
+  FEDORA_LATEST: 41
+  UBUNTU_LATEST: 23.10
   UBUNTU_LTS: 22.04
   ROCKY_LATEST: 9
   FILES: >
     rockylinux/8/Dockerfile
     rockylinux/9/Dockerfile
-    debian/10/Dockerfile
     debian/11/Dockerfile
     debian/12/Dockerfile
-    fedora/37/Dockerfile
     fedora/38/Dockerfile
+    fedora/39/Dockerfile
+    fedora/40/Dockerfile
+    fedora/41/Dockerfile
     ubuntu/20.04/Dockerfile
     ubuntu/22.04/Dockerfile
-    ubuntu/23.04/Dockerfile
+    ubuntu/23.10/Dockerfile
 
 jobs:
   build-and-push-all:

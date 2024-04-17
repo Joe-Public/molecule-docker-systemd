@@ -3,15 +3,15 @@
 You can use this image as a base container to run systemd services inside.
 
 ## Supported tags
- - `latest`, `23.04`
+ - `latest`, `23.10`
  - `lts`, `22.04`
  - `20.04`
- 
+
 ## Usage
 
 ### Test it on the console
 
-First you should start the container as a daemon. For Ubuntu 20.04 you have to add `--cgroupns=host` to the command. Starting from Ubuntu 22.04 this seems not to be necessary.
+First you should start the container as a daemon.
 
 Ubuntu 20.04:
 
@@ -19,11 +19,11 @@ Ubuntu 20.04:
 
 Ubuntu 22.04:
 
-`docker run -d --privileged --name molecule-ubuntu -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-ubuntu:22.04`
+`docker run -d --privileged --name molecule-ubuntu --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-ubuntu:22.04`
 
-Ubuntu 23.04:
+Ubuntu 23.10:
 
-`docker run -d --privileged --name molecule-ubuntu -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-ubuntu:23.04`
+`docker run -d --privileged --name molecule-ubuntu --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-ubuntu:23.10`
 
 Now you can enter the container and run `systemctl`:
 
@@ -86,7 +86,7 @@ platforms:
 
 #### Ubuntu 22.04
 
-Compared to Ubuntu 20.04 the configuration `cgroupns_mode: host` is not needed.
+For Ubuntu 22.04 the only difference would be the tag for the image:
 
 ```yaml
 platforms:
@@ -95,21 +95,23 @@ platforms:
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 ```
 
-#### Ubuntu 23.04
+#### Ubuntu 23.10
 
-Compared to Ubuntu 20.04 the configuration `cgroupns_mode: host` is not needed.
+For Ubuntu 23.10 the only difference would be the tag for the image:
 
 ```yaml
 platforms:
-  - name: ubuntu23_04
-    image: joepublic/molecule-ubuntu:23.04
+  - name: ubuntu23_10
+    image: joepublic/molecule-ubuntu:23.10
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 ```

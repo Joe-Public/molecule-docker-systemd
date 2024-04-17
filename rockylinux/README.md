@@ -10,7 +10,7 @@ You can use this image as a base container to run systemd services inside. It al
 
 ### Test it on the console
 
-First you should start the container as a daemon. For Rocky Linux 8 you have to add `--cgroupns=host` to the command. For Rocky Linux 9 this seems not to be necessary.
+First you should start the container as a daemon.
 
 Rocky Linux 8:
 
@@ -18,7 +18,7 @@ Rocky Linux 8:
 
 Rocky Linux 9:
 
-`docker run -d --privileged --name molecule-rockylinux -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-rockylinux:9`
+`docker run -d --privileged --name molecule-rockylinux --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-rockylinux:9`
 
 Now you can enter the container and run `systemctl`:
 
@@ -79,7 +79,7 @@ platforms:
 
 #### Rocky Linux 9
 
-Compared to Rocky Linux 8 there is a small difference for version 9. The configuration `cgroupns_mode: host` is not needed.
+For Rocky Linux 9 the only difference would be the tag for the image:
 
 ```yaml
 platforms:
@@ -88,6 +88,7 @@ platforms:
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 ```

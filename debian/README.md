@@ -5,17 +5,12 @@ You can use this image as a base container to run systemd services inside.
 ## Supported tags
  - `latest`, `12`
  - `11`
- - `10`
 
 ## Usage
 
 ### Test it on the console
 
-First you should start the container as a daemon. For Debain 10 (Buster) and Debian 11 (Bullseye) you have to add `--cgroupns=host` to the command. Starting from Debian 12 (Bookworm) this seems not to be necessary.
-
-Debian 10:
-
-`docker run -d --privileged --name molecule-debian --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-debian:10`
+First you should start the container as a daemon.
 
 Debian 11:
 
@@ -23,7 +18,7 @@ Debian 11:
 
 Debian 12:
 
-`docker run -d --privileged --name molecule-debian -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-debian:12`
+`docker run -d --privileged --name molecule-debian --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-debian:12`
 
 Now you can enter the container and run `systemctl`:
 
@@ -74,25 +69,9 @@ To show all installed unit files use 'systemctl list-unit-files'.
 
 ### Use it with molecule
 
-#### Debian 10
-
-A platform definition in molecule.yml could look like this for Debian 10:
-
-```yaml
-platforms:
-  - name: debian10
-    image: joepublic/molecule-debian:10
-    command: /lib/systemd/systemd
-    pre_build_image: true
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-```
-
 #### Debian 11
 
-For Debian 10 the only difference would be the tag for the image:
+A platform definition in molecule.yml could look like this for Debian 11:
 
 ```yaml
 platforms:
@@ -108,7 +87,7 @@ platforms:
 
 #### Debian 12
 
-Compared to the other versions the configuration `cgroupns_mode: host` is not needed.
+For Debian 12 the only difference would be the tag for the image:
 
 ```yaml
 platforms:
@@ -117,6 +96,7 @@ platforms:
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 ```

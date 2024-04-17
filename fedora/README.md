@@ -3,8 +3,10 @@
 You can use this image as a base container to run systemd services inside.
 
 ## Supported tags
- - `latest`, `38`
- - `37`
+ - `latest`, `41`
+ - `40`
+ - `39`
+ - `38`
 
 ## Usage
 
@@ -12,13 +14,21 @@ You can use this image as a base container to run systemd services inside.
 
 First you should start the container as a daemon.
 
-Fedora 37:
-
-`docker run -d --privileged --name molecule-fedora -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-fedora:37`
-
 Fedora 38:
 
-`docker run -d --privileged --name molecule-fedora -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-fedora:38`
+`docker run -d --privileged --name molecule-fedora --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-fedora:38`
+
+Fedora 39:
+
+`docker run -d --privileged --name molecule-fedora --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-fedora:39`
+
+Fedora 40:
+
+`docker run -d --privileged --name molecule-fedora --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-fedora:40`
+
+Fedora 41:
+
+`docker run -d --privileged --name molecule-fedora --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-fedora:41`
 
 Now you can enter the container and run `systemctl`:
 
@@ -61,24 +71,9 @@ To show all installed unit files use 'systemctl list-unit-files'.
 
 ### Use it with molecule
 
-#### Fedora 37
-
-A platform definition in molecule.yml could look like this for Fedora 37:
-
-```yaml
-platforms:
-  - name: fedora37
-    image: joepublic/molecule-fedora:37
-    command: /usr/sbin/init
-    pre_build_image: true
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-```
-
 #### Fedora 38
 
-For Fedora 38 the only difference would be the tag for the image:
+A platform definition in molecule.yml could look like this for Fedora 38:
 
 ```yaml
 platforms:
@@ -87,6 +82,55 @@ platforms:
     command: /usr/sbin/init
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+```
+
+#### Fedora 39
+
+For Fedora 39 the only difference would be the tag for the image:
+
+```yaml
+platforms:
+  - name: fedora39
+    image: joepublic/molecule-fedora:39
+    command: /usr/sbin/init
+    pre_build_image: true
+    privileged: true
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+```
+
+#### Fedora 40
+
+For Fedora 40 the only difference would be the tag for the image:
+
+```yaml
+platforms:
+  - name: fedora40
+    image: joepublic/molecule-fedora:40
+    command: /usr/sbin/init
+    pre_build_image: true
+    privileged: true
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+```
+
+#### Fedora 41
+
+For Fedora 41 the only difference would be the tag for the image:
+
+```yaml
+platforms:
+  - name: fedora41
+    image: joepublic/molecule-fedora:41
+    command: /usr/sbin/init
+    pre_build_image: true
+    privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 ```
