@@ -8,8 +8,8 @@ on:
 env:
   DEBIAN_LATEST: 12
   FEDORA_LATEST: 41
-  UBUNTU_LATEST: 23.10
-  UBUNTU_LTS: 22.04
+  UBUNTU_LATEST: 24.04
+  UBUNTU_LTS: 24.04
   ROCKY_LATEST: 9
   FILES: >
     rockylinux/8/Dockerfile
@@ -22,7 +22,7 @@ env:
     fedora/41/Dockerfile
     ubuntu/20.04/Dockerfile
     ubuntu/22.04/Dockerfile
-    ubuntu/23.10/Dockerfile
+    ubuntu/24.04/Dockerfile
 
 jobs:
   build-and-push-all:
