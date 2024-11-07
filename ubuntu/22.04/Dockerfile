@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
-ENV container docker
-ENV LC_ALL C
-ENV DEBIAN_FRONTEND noninteractive
+ENV container=docker
+ENV LC_ALL=C
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN sed -i 's/# deb/deb/g' /etc/apt/sources.list
 

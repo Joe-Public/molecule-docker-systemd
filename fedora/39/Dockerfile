@@ -1,6 +1,6 @@
 FROM fedora:39
 
-ENV container docker
+ENV container=docker
 
 RUN dnf -y update \
     && dnf -y install systemd python3 sudo python3-devel python3-dnf bash \

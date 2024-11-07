@@ -1,6 +1,6 @@
 FROM rockylinux:9
 
-ENV container docker
+ENV container=docker
 
 RUN yum makecache && yum install -y python3 sudo bash systemd && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all
 
