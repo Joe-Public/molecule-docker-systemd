@@ -12,11 +12,9 @@ env:
   UBUNTU_LTS: 24.04
   ROCKY_LATEST: 9
   FILES: >
-    rockylinux/8/Dockerfile
     rockylinux/9/Dockerfile
     debian/11/Dockerfile
     debian/12/Dockerfile
-    fedora/38/Dockerfile
     fedora/39/Dockerfile
     fedora/40/Dockerfile
     fedora/41/Dockerfile

@@ -4,17 +4,12 @@ You can use this image as a base container to run systemd services inside. It al
 
 ## Supported tags
  - `latest`, `9`
- - `8`
 
 ## Usage
 
 ### Test it on the console
 
 First you should start the container as a daemon.
-
-Rocky Linux 8:
-
-`docker run -d --privileged --name molecule-rockylinux --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-rockylinux:8`
 
 Rocky Linux 9:
 
@@ -60,22 +55,6 @@ To show all installed unit files use 'systemctl list-unit-files'.
 ```
 
 ### Use it with molecule
-
-#### Rocky Linux 8
-
-A platform definition in molecule.yml could look like this for Rocky Linux 8:
-
-```yaml
-platforms:
-  - name: rockylinux8
-    image: joepublic/molecule-rockylinux:8
-    command: /lib/systemd/systemd
-    pre_build_image: true
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-```
 
 #### Rocky Linux 9
 

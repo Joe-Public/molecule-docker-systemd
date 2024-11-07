@@ -6,17 +6,12 @@ You can use this image as a base container to run systemd services inside.
  - `latest`, `41`
  - `40`
  - `39`
- - `38`
 
 ## Usage
 
 ### Test it on the console
 
 First you should start the container as a daemon.
-
-Fedora 38:
-
-`docker run -d --privileged --name molecule-fedora --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-fedora:38`
 
 Fedora 39:
 
@@ -70,22 +65,6 @@ To show all installed unit files use 'systemctl list-unit-files'.
 ```
 
 ### Use it with molecule
-
-#### Fedora 38
-
-A platform definition in molecule.yml could look like this for Fedora 38:
-
-```yaml
-platforms:
-  - name: fedora38
-    image: joepublic/molecule-fedora:38
-    command: /usr/sbin/init
-    pre_build_image: true
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-```
 
 #### Fedora 39
 
