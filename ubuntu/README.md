@@ -3,7 +3,7 @@
 You can use this image as a base container to run systemd services inside.
 
 ## Supported tags
- - `latest`, `24.04`
+ - `latest`, `24.10`
  - `lts`, `24.04`
  - `22.04`
  - `20.04`
@@ -25,6 +25,10 @@ Ubuntu 22.04:
 Ubuntu 24.04:
 
 `docker run -d --privileged --name molecule-ubuntu --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-ubuntu:24.04`
+
+Ubuntu 24.10:
+
+`docker run -d --privileged --name molecule-ubuntu --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw joepublic/molecule-ubuntu:24.10`
 
 Now you can enter the container and run `systemctl`:
 
@@ -109,6 +113,22 @@ For Ubuntu 24.04 the only difference would be the tag for the image:
 platforms:
   - name: ubuntu24_04
     image: joepublic/molecule-ubuntu:24.04
+    command: /lib/systemd/systemd
+    pre_build_image: true
+    privileged: true
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+```
+
+#### Ubuntu 24.10
+
+For Ubuntu 24.10 the only difference would be the tag for the image:
+
+```yaml
+platforms:
+  - name: ubuntu24_10
+    image: joepublic/molecule-ubuntu:24.10
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
