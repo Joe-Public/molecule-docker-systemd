@@ -1,6 +1,6 @@
 ---
 # tasks file for molecule_docker_systemd
-- name: set fact for package to instal (Debian, Ubuntu)
+- name: set fact for package to install (Debian, Ubuntu)
   ansible.builtin.set_fact:
     package: 'apache2'
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"

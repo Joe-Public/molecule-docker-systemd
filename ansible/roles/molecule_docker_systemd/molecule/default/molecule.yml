@@ -4,14 +4,6 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: debian10
-    image: joepublic/molecule-debian:10
-    command: /lib/systemd/systemd
-    pre_build_image: true
-    privileged: true
-    cgroupns_mode: host
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
   - name: debian11
     image: joepublic/molecule-debian:11
     command: /lib/systemd/systemd
@@ -25,25 +17,28 @@ platforms:
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  - name: fedora37
-    image: joepublic/molecule-fedora:37
+  - name: fedora39
+    image: joepublic/molecule-fedora:39
     command: /usr/sbin/init
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  - name: fedora38
-    image: joepublic/molecule-fedora:38
+  - name: fedora40
+    image: joepublic/molecule-fedora:40
     command: /usr/sbin/init
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  - name: rockylinux8
-    image: joepublic/molecule-rockylinux:8
-    command: /lib/systemd/systemd
+  - name: fedora41
+    image: joepublic/molecule-fedora:41
+    command: /usr/sbin/init
     pre_build_image: true
     privileged: true
     cgroupns_mode: host
@@ -54,6 +49,7 @@ platforms:
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
   - name: ubuntu20_04
@@ -69,13 +65,23 @@ platforms:
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  - name: ubuntu23_04
-    image: joepublic/molecule-ubuntu:23.04
+  - name: ubuntu24_04
+    image: joepublic/molecule-ubuntu:24.04
     command: /lib/systemd/systemd
     pre_build_image: true
     privileged: true
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+  - name: ubuntu24_10
+    image: joepublic/molecule-ubuntu:24.10
+    command: /lib/systemd/systemd
+    pre_build_image: true
+    privileged: true
+    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 provisioner:
@@ -97,7 +103,6 @@ scenario:
     - cleanup
     - destroy
   test_sequence:
-    - lint
     - cleanup
     - destroy
     - syntax
