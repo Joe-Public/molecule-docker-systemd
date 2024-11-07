@@ -3,7 +3,7 @@ FROM fedora:41
 ENV container docker
 
 RUN dnf -y update \
-    && dnf -y install systemd python3 sudo python3-devel python3-dnf bash \
+    && dnf -y install systemd python3 sudo python3-devel python3-libdnf5 bash \
     && dnf clean all
 
 RUN cd /lib/systemd/system/sysinit.target.wants/; \
